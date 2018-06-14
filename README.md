@@ -6,7 +6,6 @@
 
 提供用户登录和注册功能
 
-http://7u2rl9.com1.z0.glb.clouddn.com/reactbook1.png
 
 ![98.png](http://7u2rl9.com1.z0.glb.clouddn.com/reactbook98.png)
 ![99.png](http://7u2rl9.com1.z0.glb.clouddn.com/reactbook99.png)
