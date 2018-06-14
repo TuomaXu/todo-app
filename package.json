@@ -5,6 +5,7 @@
   "dependencies": {
     "antd-mobile": "^2.1.11",
     "babel-plugin-import": "^1.7.0",
+    "moment": "^2.22.2",
     "react": "^16.4.0",
     "react-app-rewired": "^1.5.2",
     "react-dom": "^16.4.0",

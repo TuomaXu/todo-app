@@ -13,15 +13,8 @@ import {
 
 import userManager from '../DataServer/UserManager';
 
-
-
 export default class RegisterScreen extends Component {
 
-    componentWillMount(){
-        if(userManager.isLogin() === false && !this.props.history.state){
-            this.props.history.replace('/');
-        }
-    }
 
     constructor(props) {
       super(props)

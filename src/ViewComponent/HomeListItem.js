@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import moment from 'moment';
+
 import './HomeListItem.css'
 
 import { 
@@ -53,6 +55,9 @@ export default class HomeListItem extends Component {
                         {this.props.content}
                         </span>
                     </Card.Body>
+                    <Card.Footer
+                        content={moment(this.props.createdAt).format('YYYY-MM-DD HH:mm')}
+                    />
                 </Card>
             </WingBlank>
         </SwipeAction>

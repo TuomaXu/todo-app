@@ -42,7 +42,7 @@ export default class CreateTodoScreen extends Component {
             mode="dark"
             icon={<Icon type="left" />}
             onLeftClick={() => {this.props.history.goBack()}}
-        >注册</NavBar>
+        >添加事项</NavBar>
         <WhiteSpace/>
         <List>
             <InputItem

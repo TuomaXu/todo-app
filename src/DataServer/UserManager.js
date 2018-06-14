@@ -39,7 +39,7 @@ class UserManager {
     }
 
     isLogin(){
-        if(localStorage.access_token === ''){
+        if(localStorage.access_token === '' || !localStorage.access_token){
             return false;
         } else {
             return true;

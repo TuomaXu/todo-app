@@ -17,10 +17,8 @@ export default class HomeScreen extends Component {
 
     async componentDidMount(){
 
-        console.log(userManager.isLogin())
         if(!userManager.isLogin()){
             this.props.history.replace('/');
-            
             return;
         }
 

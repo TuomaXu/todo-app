@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Route exact path={'/'} component={LoginScreen} />
+        <Route exact={true} path={'/'} component={LoginScreen} />
         <Route path={'/RegisterScreen'} component={RegisterScreen} />
         <Route path={'/HomeScreen'} component={HomeScreen} />
         <Route path={'/CreateTodoScreen'} component={CreateTodoScreen} />
