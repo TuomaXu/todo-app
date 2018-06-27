@@ -19,6 +19,13 @@ import userManager from '../DataServer/UserManager';
 
 export default class CreateTodoScreen extends Component {
 
+
+    componentDidMount(){
+        if(userManager.isLogin() === false){
+            this.props.history.replace('/');
+        }
+    }
+
     constructor(props) {
       super(props)
     
@@ -27,14 +34,7 @@ export default class CreateTodoScreen extends Component {
          content:''
       }
     }
-
-    componentWillMount(){
-        if(!userManager.isLogin()){
-            this.props.history.replace('/');
-        }
-    }
     
-
   render() {
     return (
       <div>
