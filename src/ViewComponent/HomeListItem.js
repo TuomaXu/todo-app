@@ -13,7 +13,6 @@ import {
 
 export default class HomeListItem extends Component {
   render() {
-
     return (
         <SwipeAction
             autoClose={true}
@@ -43,6 +42,13 @@ export default class HomeListItem extends Component {
             ]}
 
         >
+            {this.itemBody()}
+        </SwipeAction>
+    )
+  }
+
+  itemBody = ()=>{
+      return(
             <WingBlank>
                 <WhiteSpace/>
                 <Card>
@@ -59,8 +65,8 @@ export default class HomeListItem extends Component {
                         content={moment(this.props.createdAt).format('YYYY-MM-DD HH:mm')}
                     />
                 </Card>
+                <WhiteSpace/>
             </WingBlank>
-        </SwipeAction>
-    )
+      )
   }
 }

@@ -65,25 +65,30 @@ export default class CreateTodoScreen extends Component {
         <WingBlank>
             <Button
                 type={'primary'}
-                onClick={async()=>{
-                    Toast.loading('内容上传中...',0);
-                    const resutl = await todoManager.postTodo(this.state.title,this.state.content);
-                    Toast.hide();
-                    if(resutl.success === false){
-                        Toast.fail(resutl.errorMessage);
-                        return;
-                    }
-                    Modal.alert('提交成功','点击确认键返回',[{
-                        text:'确认',
-                        onPress:()=>{this.props.history.goBack()}
-                    }])
-
-                }}
+                onClick={this.sendTodo}
             >
                 提交
             </Button>
         </WingBlank>
       </div>
     )
+  }
+
+  sendTodo = async ()=>{
+    Toast.loading('内容上传中...',0);
+    const result = await todoManager.postTodo(this.state.title,this.state.content);
+    Toast.hide();
+    if(result.success === false){
+        Toast.fail(result.errorMessage);
+        if(result.errorCode === 10004){
+            userManager.logout();
+            this.props.history.replace('/');
+        }
+        return;
+    }
+    Modal.alert('提交成功','点击确认键返回',[{
+        text:'确认',
+        onPress:()=>{this.props.history.goBack()}
+    }])
   }
 }

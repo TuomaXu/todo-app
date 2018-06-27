@@ -14,18 +14,21 @@ import HomeListItem from '../ViewComponent/HomeListItem';
 
 export default class HomeScreen extends Component {
 
-
     async componentDidMount(){
 
-        if(!userManager.isLogin()){
+        if(userManager.isLogin() === false){
             this.props.history.replace('/');
             return;
         }
 
         const result = await todoManager.getTodos();
-        console.log(result)
+
         if(result.success === false){
             Toast.fail(result.errorMessage);
+            if(result.errorCode === 10004){
+                userManager.logout();
+                this.props.history.replace('/');
+            }
             return;
         }
 
@@ -52,17 +55,26 @@ export default class HomeScreen extends Component {
     onToggleFinish = async (id)=>{
         Toast.loading('操作中',0);
         const result = await todoManager.finishTodo(id);
-        
-        if(result.success === false){
-            Toast.hide();
+        Toast.hide();
+
+        if(result.success === false){ 
             Toast.fail(result.errorMessage);
+            if(result.errorCode === 10004){
+                userManager.logout();
+                this.props.history.replace('/');
+            }
             return;
         }
-
+        Toast.loading('刷新数据',0);
         const result1 = await todoManager.getTodos();
+        Toast.hide();
+
         if(result1.success === false){
-            Toast.hide();
             Toast.fail(result1.errorMessage);
+            if(result.errorCode === 10004){
+                userManager.logout();
+                this.props.history.replace('/');
+            }
             return;
         }
 
@@ -70,25 +82,33 @@ export default class HomeScreen extends Component {
             return{
                 dataSource:preState.dataSource.cloneWithRows(result1.data)
             }   
-        },()=>{
-            Toast.hide(); 
         })
     }
 
     onDel = async (id)=>{
         Toast.loading('操作中',0);
         const result = await todoManager.deleteTodo(id);
-        
+        Toast.hide();
+
         if(result.success === false){
-            Toast.hide();
             Toast.fail(result.errorMessage);
+            if(result.errorCode === 10004){
+                userManager.logout();
+                this.props.history.replace('/');
+            }
             return;
         }
 
+        Toast.loading('刷新数据',0);
         const result1 = await todoManager.getTodos();
+        Toast.hide();
+
         if(result1.success === false){
-            Toast.hide();
             Toast.fail(result1.errorMessage);
+            if(result.errorCode === 10004){
+                userManager.logout();
+                this.props.history.replace('/');
+            }
             return;
         }
 
@@ -96,8 +116,6 @@ export default class HomeScreen extends Component {
             return{
                 dataSource:preState.dataSource.cloneWithRows(result1.data)
             }   
-        },()=>{
-            Toast.hide(); 
         })
     }
     
@@ -128,18 +146,19 @@ export default class HomeScreen extends Component {
         <ListView
             useBodyScroll={true}
             dataSource={this.state.dataSource}
-            renderRow={(todo)=>{
-                console.log(todo)
-                return (
-                    <HomeListItem 
-                        {...todo} 
-                        toggleFinish={this.onToggleFinish}
-                        del={this.onDel}
-                    />
-                )
-            }}
+            renderRow={this.renderRow}
         />
       </div>
+    )
+  }
+
+  renderRow = (todo)=>{
+    return(
+        <HomeListItem 
+            {...todo} 
+            toggleFinish={this.onToggleFinish}
+            del={this.onDel}
+        />
     )
   }
 }

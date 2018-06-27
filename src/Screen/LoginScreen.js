@@ -12,9 +12,13 @@ import {
 
 import userManager from '../DataServer/UserManager';
 
-
-
 export default class LoginScreen extends Component {
+
+    componentDidMount(){
+        if(userManager.isLogin() === true){
+            this.props.history.replace('/HomeScreen');
+        }
+    }
 
     constructor(props) {
       super(props)
@@ -33,7 +37,9 @@ export default class LoginScreen extends Component {
             <div>
             <NavBar
                 mode="dark"
-            >登录</NavBar>
+            >
+                登录
+            </NavBar>
             <WhiteSpace/>
             <List>
                 <InputItem
@@ -64,7 +70,9 @@ export default class LoginScreen extends Component {
                 <WhiteSpace/>
                 <Button
                     type={'primary'}
-                    onClick={this.onRegisterClick}
+                    onClick={()=>{
+                        this.props.history.push('/RegisterScreen')
+                    }}
                 >
                     注册
                 </Button>
@@ -80,9 +88,5 @@ export default class LoginScreen extends Component {
             return;
         }
         this.props.history.replace('/HomeScreen');
-    }
-
-    onRegisterClick = ()=>{
-        this.props.history.push('/RegisterScreen')
     }
 }

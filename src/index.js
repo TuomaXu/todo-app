@@ -4,13 +4,13 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import { MemoryRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 
 ReactDOM.render(
-    <MemoryRouter>
+    <HashRouter>
         <App />
-    </MemoryRouter>,
+    </HashRouter>,
     document.getElementById('root')
 );
 registerServiceWorker();

@@ -15,6 +15,12 @@ import userManager from '../DataServer/UserManager';
 
 export default class RegisterScreen extends Component {
 
+    componentDidMount(){
+        if(userManager.isLogin() === true){
+            this.props.history.replace('/HomeScreen');
+        }
+    }
+
 
     constructor(props) {
       super(props)
@@ -57,21 +63,22 @@ export default class RegisterScreen extends Component {
         <WingBlank>
             <Button
                 type={'primary'}
-                onClick={async()=>{
-                    const reslut = await userManager.register(this.state.username,this.state.password);
-                    console.log(reslut);
-                    if(reslut.success === false){
-                        Toast.fail(reslut.errorMessage);
-                        return;
-                    }
-                    this.props.history.replace('/HomeScreen');
-                    
-                }}
+                onClick={this.onRegister}
             >
                 提交注册
             </Button>
         </WingBlank>
       </div>
     )
+  }
+
+  onRegister = async()=>{
+    const reslut = await userManager.register(this.state.username,this.state.password);
+    console.log(reslut);
+    if(reslut.success === false){
+        Toast.fail(reslut.errorMessage,1);
+        return;
+    }
+    this.props.history.replace('/HomeScreen');
   }
 }
